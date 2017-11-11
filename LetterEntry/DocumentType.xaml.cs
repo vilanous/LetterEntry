@@ -53,12 +53,7 @@ namespace LetterEntry
             dBConn.Close();
 
         }
-        public void Save_Rec()
-        {
-            
-            
-
-        }
+        
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             string savedoctype = Document_Type_Combo.Text;
