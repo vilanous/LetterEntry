@@ -56,6 +56,11 @@ namespace LetterEntry
         public void Save_Rec()
         {
             
+            
+
+        }
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
             string savedoctype = Document_Type_Combo.Text;
             string Record_Load_String = ("SELECT * FROM tableDocumentType WHERE CONVERT (VARCHAR, docType) = @savedoctype");
             SqlCommand Load_Record_Cmd = new SqlCommand(Record_Load_String, dBConn);
@@ -85,7 +90,7 @@ namespace LetterEntry
 
                     Notification_Box.Text = "Record Saved";
                     Document_Type_Combo.Text = "";
-                    
+
                 }
             }
             catch (Exception ex)
@@ -93,13 +98,8 @@ namespace LetterEntry
                 MessageBox.Show(ex.Message);
             }
             dBConn.Close();
-
-        }
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
-        {
             try
             {
-                Save_Rec();
                 FillComboClass();
                 Update_MainCombo();
             }
@@ -127,7 +127,8 @@ namespace LetterEntry
         }
         public void Update_MainCombo()
         {
-            ((MainWindow)Application.Current.MainWindow).comboDocType.Items.Clear();
+            //((MainWindow)Application.Current.MainWindow).comboDocType.Items.Clear();
+            MainWindow.AppWindow.comboDocType.Items.Clear();
 
             string getdoctype;
             SqlCommand Load_Doc_Type_Cmd = new SqlCommand("SELECT docType FROM tableDocumentType", dBConn);
@@ -139,7 +140,8 @@ namespace LetterEntry
                 while (Document_Type_DataReader.Read())
                 {
                     getdoctype = Document_Type_DataReader.GetString(0);
-                    ((MainWindow)Application.Current.MainWindow).comboDocType.Items.Add(getdoctype);
+                    //((MainWindow)Application.Current.MainWindow).comboDocType.Items.Add(getdoctype);
+                    MainWindow.AppWindow.comboDocType.Items.Add(getdoctype);
                 }
                 Document_Type_DataReader.Close();
             }

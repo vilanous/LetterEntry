@@ -10,23 +10,23 @@
     <Grid Margin="0,0,0,7">
         <Button 
             Content="Save" 
-            Margin="46,305,186,119" 
-            Click="Save_Button_Click"/>
+            Margin="46,305,0,0" 
+            Click="Save_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button 
             Content="Delete" 
-            Margin="0,0,46,119" 
-            Click="Delete_Button_Click" 
-            Height="40" 
-            Width="112" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"/>
+            Margin="186,305,0,0" 
+            Click="Delete_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ComboBox 
             x:Name="Sender_Name_Combo" 
             Margin="46,112,0,0" 
             VerticalAlignment="Top"  
             Height="40" 
             IsEditable="True"
-            HorizontalAlignment="Left" Width="252" SelectionChanged="Sender_Name_Combo_SelectionChanged" FontSize="18" VerticalContentAlignment="Center"/>
+            HorizontalAlignment="Left" 
+            Width="252" 
+            SelectionChanged="Sender_Name_Combo_SelectionChanged" 
+            FontSize="18" 
+            VerticalContentAlignment="Center"/>
         <Rectangle 
             Fill="#FF9B12EA" 
             Height="65" 
@@ -62,7 +62,10 @@
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
-            FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="252"/>
+            FontSize="18" 
+            VerticalContentAlignment="Center" 
+            HorizontalAlignment="Left" 
+            Width="252"/>
         <TextBox 
             x:Name="ContactBox"
             Height="40" 
