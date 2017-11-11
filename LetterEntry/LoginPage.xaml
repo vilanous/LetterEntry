@@ -1,0 +1,54 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LetterEntry"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="LetterEntry.LoginPage"
+        mc:Ignorable="d"
+        Title="LoginPage" Height="500" Width="350">
+    <Grid>
+        <Button 
+            x:Name="BtnLogin"
+            Content="Login" 
+            HorizontalAlignment="Left" 
+            Margin="46,310,0,0" 
+            VerticalAlignment="Top" 
+            Width="112" 
+            Height="40"
+            Click="BtnLogin_Click"/>
+
+        <Button 
+            x:Name="BtnCancel"
+            Content="Cancel" 
+            HorizontalAlignment="Left" 
+            Margin="184,310,0,0" 
+            VerticalAlignment="Top" 
+            Width="112"
+            Height="40" Click="BtnCancel_Click"/>
+
+        <TextBox 
+            x:Name="UserNameBox"
+            HorizontalAlignment="Left" 
+            Height="40"
+            Margin="46,211,0,0" 
+            Width="250" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            FontSize="18" 
+            VerticalContentAlignment="Center" 
+            />
+        <PasswordBox 
+            x:Name="PassWordBox"
+            HorizontalAlignment="Left" 
+            Margin="46,256,0,0" 
+            VerticalAlignment="Top" 
+            Width="250" Height="40" 
+            FontSize="18" 
+            VerticalContentAlignment="Center"/>
+        <Image Margin="116,79,115,282" Source="icon.png" Stretch="Fill"/>
+        <Image Margin="0,0,0,404" Source="Banner.jpg" Stretch="Fill" Height="65"/>
+
+    </Grid>
+</Window>
