@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Closing="Window_Closing"
-        Title="Document Type" Height="500" Width="350">
+        Title="Document Type" Height="600" Width="350">
 
     <Grid>
         <Button 
             x:Name="Save_Record_Button" 
             Content="Save record" 
-            Margin="46,263,0,0" 
+            Margin="44,315,0,0" 
             VerticalAlignment="Top" 
             Height="40" 
             Click="Save_Button_Click" 
@@ -22,7 +22,7 @@
         <Button 
             x:Name="Delete_Record_Button" 
             Content="Delete" 
-            Margin="0,263,46,0" 
+            Margin="0,315,48,0" 
             VerticalAlignment="Top" 
             Height="40" 
             Click="Delete_Button_Click" 
@@ -32,7 +32,7 @@
             x:Name="Notification_Box" 
             HorizontalAlignment="Left" 
             Height="20" 
-            Margin="47,201,0,0" 
+            Margin="45,253,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -43,7 +43,7 @@
             />
         <ComboBox 
             x:Name="Document_Type_Combo" 
-            Margin="46,148,46,0"  
+            Margin="44,200,48,0"  
             Text=""  
             FontSize="18" 
             AllowDrop="True" 

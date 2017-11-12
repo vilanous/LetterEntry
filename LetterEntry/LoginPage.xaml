@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LetterEntry"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="LetterEntry.LoginPage"
         mc:Ignorable="d"
-        Title="LoginPage" Height="500" Width="350">
+        Title="LoginPage" Height="600" Width="350">
     <Grid>
         <Button 
             x:Name="BtnLogin"
@@ -47,8 +47,8 @@
             Width="250" Height="40" 
             FontSize="18" 
             VerticalContentAlignment="Center"/>
-        <Image Margin="116,79,115,282" Source="icon.png" Stretch="Fill"/>
-        <Image Margin="0,0,0,404" Source="Banner.jpg" Stretch="Fill" Height="65"/>
+        <Image Margin="118,70,113,372" Source="icon.png" Stretch="Fill"/>
+        <Image Margin="0,0,0,504" Source="Banner.jpg" Stretch="Fill" Height="65"/>
 
     </Grid>
 </Window>

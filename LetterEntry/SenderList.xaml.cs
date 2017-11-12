@@ -130,14 +130,6 @@ namespace LetterEntry
             {
                 Notification_Box.Text = "Nothing Selected";
             }
-            
-            //delete_Sender.CommandText = "DELETE FROM tableSenderList WHERE Contact_Name,Email_Address,Contact_Number = @Contact_Name,@Email_Address,@Contact_Number";
-            //delete_Sender.Parameters.AddWithValue("@Contact_Name", Del_Name);
-            //delete_Sender.Parameters.AddWithValue("@Email_Address", Del_Email);
-            //delete_Sender.Parameters.AddWithValue("@Contact_Number", Del_Contact);
-            //delete_Sender.Connection = dBconn;
-            //delete_Sender.ExecuteNonQuery();
-
             Fill_Combo_Box();
             Update_MainCombo();
         }
@@ -173,7 +165,6 @@ namespace LetterEntry
         {
             Sender_Name_Combo.Items.Clear();
             dBConn.Open();
-            string cName1;
             SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT * FROM tableSenderList WHERE Contact_Name='"+ Sender_Name_Combo.Text +"'", dBConn);
             SqlDataReader Sender_Name_DataReader = Load_Sender_Name_Cmd.ExecuteReader();
             try
