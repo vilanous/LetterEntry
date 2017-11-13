@@ -16,7 +16,8 @@
             VerticalAlignment="Top" 
             Width="112" 
             Height="40"
-            Click="BtnLogin_Click"/>
+            Click="BtnLogin_Click"
+            IsDefault="True"/>
 
         <Button 
             x:Name="BtnCancel"
@@ -46,8 +47,9 @@
             VerticalAlignment="Top" 
             Width="250" Height="40" 
             FontSize="18" 
-            VerticalContentAlignment="Center"/>
-        <Image Margin="118,70,113,372" Source="icon.png" Stretch="Fill"/>
+            VerticalContentAlignment="Center"
+            />
+        <Image Margin="121,84,121,385" Source="icon.png" Stretch="Fill" Width="100" Height="100"/>
         <Image Margin="0,0,0,504" Source="Banner.jpg" Stretch="Fill" Height="65"/>
 
     </Grid>

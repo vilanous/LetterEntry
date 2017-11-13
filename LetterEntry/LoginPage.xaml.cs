@@ -28,6 +28,7 @@ namespace LetterEntry
         public LoginPage()
         {
             InitializeComponent();
+            
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)

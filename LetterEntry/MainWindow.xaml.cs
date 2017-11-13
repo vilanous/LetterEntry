@@ -183,25 +183,7 @@ namespace LetterEntry
             NewScanner.ShowDialog();
         }
 
-        private void Tw_ScanningComplete(object sender, ScanningCompleteEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Tw_TransferImage(object sender, TransferImageEventArgs e)
-        {
-            throw new NotImplementedException();
-            if (e.Image != null)
-            {
-                //the image received is in e.Image property
-            }
-            else
-            {
-
-            }
-
-        }
-
+        
         private void LogOutBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
