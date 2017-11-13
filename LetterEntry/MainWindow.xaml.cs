@@ -22,6 +22,7 @@ using LetterEntry;
 using TwainDotNet.Wpf;
 using TwainDotNet;
 using TestAppWpf;
+using System.Net.Mail;
 
 namespace LetterEntry
 {
@@ -35,6 +36,7 @@ namespace LetterEntry
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
         public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
+
         public MainWindow()
         {
             InitializeComponent();
@@ -137,7 +139,7 @@ namespace LetterEntry
             string thedcrp = drcpbox.Text;
             string thefrom = sentByBox.Text;
             string theenterer = entryBybox.Text;
-                                            
+
             save.CommandText = "INSERT INTO tableEntry (Doc_Type,Doc_Number,Sent_By,Details,Entry,Date) VALUES(@Doc_Type,@Doc_Number,@Sent_By,@Details,@Entry,@Date)";
             save.Parameters.AddWithValue("@Doc_Type", thedoctype);
             save.Parameters.AddWithValue("@Doc_Number", theref);
@@ -148,16 +150,44 @@ namespace LetterEntry
             save.Connection = dBConn;
             save.ExecuteNonQuery();
             
-            MessageBox.Show("Successfull");
+            //MessageBox.Show("Successfull");
             dBConn.Close();
 
             //clear all
             Reset_Form();
-
+            MessageBox.Show("Successfull");
             //call fill datagrid function
             //Fill_Data_Grid_Class();
             FillComboClass();
             FillIDbox();
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("Admin@gis.edu.mv");
+                mail.To.Add("majid.ali@mtcc.com.mv");
+                mail.Subject = "GIS Entry System, ENTRY ID: " + IDBox.Text;
+                mail.Body = thefrom + "\n" + thedate + "\n" + thedoctype + "\n" + theref + "\n" + thedcrp;
+
+                //Attachment attachment;
+                //attachment = new Attachment("your attachment file");
+                //mail.Attachments.Add(attachment);
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("debugservice0@gmail.com", "manage0service");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                //MessageBox.Show("mail Send");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            //Reset_Form();
+
 
         }
 

@@ -119,6 +119,7 @@ namespace LetterEntry
             dBconn.Close();
             Notification_Box.Text = "Record Deleted";
             FillComboClass();
+            Update_MainCombo();
         }
         public void Update_MainCombo()
         {
