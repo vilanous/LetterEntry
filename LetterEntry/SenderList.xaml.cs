@@ -135,8 +135,7 @@ namespace LetterEntry
         }
         public void Update_MainCombo()
         {
-            //((MainWindow)Application.Current.MainWindow).sentByBox.Items.Clear();
-            LetterEntry.MainWindow.AppWindow.sentByBox.Items.Clear();
+            MainWindow.AppWindow.sentByBox.Items.Clear();
 
             string Sender_Name_From_Tbl;
             SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM tableSenderList", dBConn);
@@ -149,7 +148,6 @@ namespace LetterEntry
                 {
                     Sender_Name_From_Tbl = Sender_Name_DataReader.GetString(0);
                     MainWindow.AppWindow.sentByBox.Items.Add(Sender_Name_From_Tbl);
-                    //((MainWindow)Application.Current.MainWindow).sentByBox.Items.Add(Sender_Name_From_Tbl);
                 }
                 Sender_Name_DataReader.Close();
             }

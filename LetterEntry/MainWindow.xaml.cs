@@ -23,6 +23,7 @@ using TwainDotNet.Wpf;
 using TwainDotNet;
 using TestAppWpf;
 using System.Net.Mail;
+using System.Threading;
 
 namespace LetterEntry
 {
@@ -36,7 +37,7 @@ namespace LetterEntry
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
         public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
-
+  
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace LetterEntry
 
             comboDocType.Focus();
             AppWindow = this;
+            
         }
 
         public void Login_Window()
@@ -58,7 +60,7 @@ namespace LetterEntry
             string IdPlusOne;
             int IdFromTbl;
             SqlCommand GetID = new SqlCommand("SELECT ID FROM tableEntry", dBConn);
-
+            
             SqlDataReader GetIDReader;
             try
             {
@@ -131,6 +133,25 @@ namespace LetterEntry
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+
+            //dBConn.Open();
+
+            //try
+            //{
+                SaveEntry();
+                SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            Reset_Form();
+            FillComboClass();
+            FillIDbox();
+
+        }
+        public void SaveEntry()
+        {
             SqlCommand save = new SqlCommand();
             dBConn.Open();
             string thedoctype = comboDocType.Text;
@@ -149,47 +170,39 @@ namespace LetterEntry
             save.Parameters.AddWithValue("@Date", thedate);
             save.Connection = dBConn;
             save.ExecuteNonQuery();
-            
+
             //MessageBox.Show("Successfull");
+            
             dBConn.Close();
-
-            //clear all
-            Reset_Form();
+            //dBConn.Dispose();
             MessageBox.Show("Successfull");
-            //call fill datagrid function
-            //Fill_Data_Grid_Class();
-            FillComboClass();
-            FillIDbox();
-            try
-            {
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("Admin@gis.edu.mv");
-                mail.To.Add("majid.ali@mtcc.com.mv");
-                mail.Subject = "GIS Entry System, ENTRY ID: " + IDBox.Text;
-                mail.Body = thefrom + "\n" + thedate + "\n" + thedoctype + "\n" + theref + "\n" + thedcrp;
-
-                //Attachment attachment;
-                //attachment = new Attachment("your attachment file");
-                //mail.Attachments.Add(attachment);
-
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("debugservice0@gmail.com", "manage0service");
-                SmtpServer.EnableSsl = true;
-
-                SmtpServer.Send(mail);
-                //MessageBox.Show("mail Send");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-            //Reset_Form();
-
-
+            
         }
+        public void SendMail()
+        {
+            String userName = "majid.ali@mtcc.com.mv";
+            String password = "gis@1245";
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress(userName);
+            msg.To.Add("vilanous@gmail.com");
+            msg.Subject = "Your Subject Name";
+            string sb = "test string for mail";
+            //sb.AppendLine("Name: " + txtname.Text);
+            //sb.AppendLine("Mobile Number: " + txtmbno.Text);
+            //sb.AppendLine("Email:" + txtemail.Text);
+            //sb.AppendLine("Drop Downlist Name:" + ddllinksource.SelectedValue.ToString());
+            msg.Body = sb;
+            //Attachment attach = new Attachment(Server.MapPath("folder/" + ImgName));
+            //msg.Attachments.Add(attach);
+            SmtpClient SmtpClient = new SmtpClient();
+            SmtpClient.Credentials = new System.Net.NetworkCredential(userName, password);
+            SmtpClient.Host = "smtp.office365.com";
+            SmtpClient.Port = 587;
+            SmtpClient.EnableSsl = true;
+            SmtpClient.Send(msg);
+            MessageBox.Show("sent");
+        }
+        
 
         private void AdminBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -199,7 +212,8 @@ namespace LetterEntry
 
         private void UsrMngmt_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManagement NewUserMngmt = new UserManagement();
+            NewUserMngmt.ShowDialog();
         }
 
         private void ResetBtn_Click(object sender, RoutedEventArgs e)
