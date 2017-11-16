@@ -132,7 +132,7 @@
                         Margin="313,399,0,0" 
                         VerticalAlignment="Top" 
                         Width="87"
-                        Height="40"/>
+                        Height="40" Click="sUpdateBtn_Click"/>
                     <Button 
                         Content="Delete" 
                         x:Name="sDeleteBtn"

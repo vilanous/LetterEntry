@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.IO;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace LetterEntry
 {
@@ -24,7 +25,7 @@ namespace LetterEntry
     {
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
-        public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
+        //public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
         public SenderList()
         {
             InitializeComponent();
@@ -32,6 +33,8 @@ namespace LetterEntry
         }
         public void Fill_Combo_Box()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             Sender_Name_Combo.Items.Clear();
             dBConn.Open();
             SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM tableSenderList", dBConn);
@@ -54,6 +57,8 @@ namespace LetterEntry
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             if (Sender_Name_Combo.Text.Length > 0)
             {
                 string save_Email = EmailBox.Text;
@@ -110,7 +115,9 @@ namespace LetterEntry
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(Sender_Name_Combo.Text.Length > 0)
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            if (Sender_Name_Combo.Text.Length > 0)
             {
                 string Del_Name = Sender_Name_Combo.Text;
                 string Del_Email = EmailBox.Text;
@@ -135,6 +142,8 @@ namespace LetterEntry
         }
         public void Update_MainCombo()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             MainWindow.AppWindow.sentByBox.Items.Clear();
 
             string Sender_Name_From_Tbl;
@@ -161,6 +170,8 @@ namespace LetterEntry
 
         private void Sender_Name_Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             Sender_Name_Combo.Items.Clear();
             dBConn.Open();
             SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT * FROM tableSenderList WHERE Contact_Name='"+ Sender_Name_Combo.Text +"'", dBConn);

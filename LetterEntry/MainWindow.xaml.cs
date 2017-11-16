@@ -24,6 +24,7 @@ using TwainDotNet;
 using TestAppWpf;
 using System.Net.Mail;
 using System.Threading;
+using System.Configuration;
 
 namespace LetterEntry
 {
@@ -36,8 +37,12 @@ namespace LetterEntry
         public String getdoctype, getSenderName;
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
-        public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
-  
+
+
+
+        //public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -46,7 +51,8 @@ namespace LetterEntry
 
             comboDocType.Focus();
             AppWindow = this;
-            
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
         }
 
         public void Login_Window()
@@ -56,6 +62,8 @@ namespace LetterEntry
         }
         public void FillIDbox()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             dBConn.Open();
             string IdPlusOne;
             int IdFromTbl;
@@ -79,13 +87,14 @@ namespace LetterEntry
             dBConn.Close();
         }
         public void FillComboClass()
-        {   
-            
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             comboDocType.Items.Clear();
             sentByBox.Items.Clear();
             string getdoctype, getSenderName;
             string Query1 = "SELECT docType FROM tableDocumentType";
-            SqlConnection dBConn = new SqlConnection(dBPath);
+            //SqlConnection dBConn = new SqlConnection(dBPath);
             SqlCommand getdoc = new SqlCommand(Query1, dBConn);
 
             string Query2 = "SELECT Contact_Name FROM tableSenderList";
@@ -152,6 +161,8 @@ namespace LetterEntry
         }
         public void SaveEntry()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             SqlCommand save = new SqlCommand();
             dBConn.Open();
             string thedoctype = comboDocType.Text;
