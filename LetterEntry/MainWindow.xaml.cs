@@ -51,8 +51,7 @@ namespace LetterEntry
 
             comboDocType.Focus();
             AppWindow = this;
-            SqlConnection dBConn = new SqlConnection();
-            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            
         }
 
         public void Login_Window()
@@ -85,6 +84,7 @@ namespace LetterEntry
                 MessageBox.Show(ex.Message);
             }
             dBConn.Close();
+            dBConn.Dispose();
         }
         public void FillComboClass()
         {

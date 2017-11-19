@@ -33,12 +33,12 @@ namespace LetterEntry
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //SqlCommand Login_Cmd;
-            //SqlDataReader UserDataReader;
-            //Login_Cmd = new SqlCommand("select Username,word from tableStaff where USername=@Username and word=@word", dBConn);
-            //Login_Cmd.Parameters.AddWithValue("@Username", UserNameBox.Text.ToString());
-            //Login_Cmd.Parameters.AddWithValue("@word", PassWordBox.Password.ToString());
-            //UserDataReader = Login_Cmd.ExecuteReader();
+            SqlCommand Login_Cmd;
+            SqlDataReader UserDataReader;
+            Login_Cmd = new SqlCommand("select USERNAME,PASSWORD from Staff where Username=@USERNAME and PASSWORD=@PASSWORD", dBConn);
+            Login_Cmd.Parameters.AddWithValue("@USERNAME", UserNameBox.Text.ToString());
+            Login_Cmd.Parameters.AddWithValue("@PASSWORD", PassWordBox.Password.ToString());
+            UserDataReader = Login_Cmd.ExecuteReader();
             if (UserNameBox.Text == "admin" && PassWordBox.Password == "admin")
             {
                 

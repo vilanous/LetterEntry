@@ -19,7 +19,7 @@
             <TabItem 
                 Header="Manage Users"
                 FontSize="16" 
-                Margin="-2,-2,-2,-25">
+                Margin="-2,-2,-2,-25" Width="120">
                 <Grid>
                     <ComboBox 
                         x:Name="sNameCombo"
@@ -40,8 +40,8 @@
                         x:Name="sNameBox"
                         TextWrapping="Wrap" 
                         Text="" 
-                        Margin="106,128,370,300" 
-                        VerticalContentAlignment="Center"/>
+                        Margin="106,128,370,0" 
+                        VerticalContentAlignment="Center" Height="38" VerticalAlignment="Top"/>
                     <Label 
                         Content="User Name" 
                         HorizontalAlignment="Left" 
@@ -73,6 +73,12 @@
                         x:Name="sPasswordBox"
                         Margin="106,338,370,90"
                         VerticalContentAlignment="Center"/>
+                    <TextBox 
+                        x:Name="sIDBox"
+                        TextWrapping="Wrap" 
+                        Text="" 
+                        Margin="364,48,114,378"
+                        VerticalContentAlignment="Center"/>
                     <Label 
                         Content="Designation" 
                         HorizontalAlignment="Left" 
@@ -80,21 +86,27 @@
                         VerticalAlignment="Top" FontSize="14"/>
                     <TextBox 
                         x:Name="sDesignationBox"
-                        TextWrapping="Wrap"
+                        TextWrapping="Wrap" 
                         Text=""
                         Margin="364,128,114,300"
+                        VerticalContentAlignment="Center"/>
+                    <ComboBox 
+                        x:Name="sAccessCombo"
+                        HorizontalAlignment="Left" 
+                        Margin="364,198,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="240" Height="38"
+                        Text=""
+                        IsEditable="False" 
+                        IsReadOnly="True"
                         VerticalContentAlignment="Center"/>
                     <Label 
                         Content="Access Level" 
                         HorizontalAlignment="Left" 
                         Margin="364,168,0,0" 
                         VerticalAlignment="Top" FontSize="14"/>
-                    <TextBox 
-                        x:Name="sAccessLevelBox"
-                        TextWrapping="Wrap"
-                        Text=""
-                        Margin="364,198,114,230"
-                        VerticalContentAlignment="Center"/>
+
+
                     <Label 
                         Content="Department" 
                         HorizontalAlignment="Left" 
@@ -132,7 +144,7 @@
                         Margin="313,399,0,0" 
                         VerticalAlignment="Top" 
                         Width="87"
-                        Height="40" Click="sUpdateBtn_Click"/>
+                        Height="40"/>
                     <Button 
                         Content="Delete" 
                         x:Name="sDeleteBtn"
@@ -140,7 +152,8 @@
                         Margin="405,399,0,0" 
                         VerticalAlignment="Top" 
                         Width="87"
-                        Height="40"/>
+                        Height="40" Click="sDeleteBtn_Click"/>
+
                 </Grid>
             </TabItem>
 
@@ -148,7 +161,8 @@
             <TabItem 
                 Header="All Users" 
                 FontSize="16" 
-                Margin="-2,-2,-2,-25">
+                Margin="-2,-2,-2,-25" Width="120"
+                GotFocus="TabItemAll_GotFocus">
                 <DataGrid 
                     Margin="10,0,12,12"
                     x:Name="AllUsersGrid" 
@@ -158,10 +172,9 @@
             <TabItem 
                 Header="User" 
                 FontSize="16" 
-                Margin="-2,-2,-2,-25">
+                Margin="-2,-2,-2,-25" Width="120">
 
             </TabItem>
-
 
 
         </TabControl>

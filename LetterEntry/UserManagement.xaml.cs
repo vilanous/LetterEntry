@@ -22,8 +22,9 @@ namespace LetterEntry
         public UserManagement()
         {
             InitializeComponent();
-            Fill_Data_Grid_Class();
+            //Fill_Data_Grid_Class();
             Fill_sNameCombo();
+            Fill_sAccessCombo();
         }
 
         public void Fill_Data_Grid_Class()
@@ -70,6 +71,11 @@ namespace LetterEntry
             }
             dBConn.Close();
         }
+        public void Fill_sAccessCombo()
+        {
+            sAccessCombo.Items.Add("Standard");
+            sAccessCombo.Items.Add("Administrator");
+        }
 
         private void sNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -83,7 +89,7 @@ namespace LetterEntry
             {
                 while (LoadStaff_DataReader.Read())
                 {
-                    //string sID = LoadStaff_DataReader["ID"].ToString();
+                    string sID = LoadStaff_DataReader["STAFF_ID"].ToString();
                     string sName = LoadStaff_DataReader["STAFF_NAME"].ToString();
                     string sUName = LoadStaff_DataReader["USERNAME"].ToString();
                     string sEmail = LoadStaff_DataReader["EMAIL"].ToString();
@@ -93,11 +99,13 @@ namespace LetterEntry
                     string sStatus = LoadStaff_DataReader["STATUS"].ToString();
                     string sDepart = LoadStaff_DataReader["DEPART_ALIAS"].ToString();
 
+                    sIDBox.Text = "00" + sID;
                     sNameBox.Text = sName;
                     sUsernameBox.Text = sUName;
                     sEmailBox.Text = sEmail;
+                    sPasswordBox.Password = sPass;
                     sDesignationBox.Text = sDesignation;
-                    sAccessLevelBox.Text = sAccess;
+                    sAccessCombo.Text = sAccess;
                     sStatusBox.Text = sStatus;
                     sDeparmentBox.Text = sDepart;
                 }
@@ -108,23 +116,26 @@ namespace LetterEntry
                 MessageBox.Show(ex.Message);
             }
             dBConn.Close();
+            Fill_sNameCombo();
         }
 
         private void sSaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection dBConn = new SqlConnection();
-            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
             SqlCommand SaveStaffCmd = new SqlCommand();
             dBConn.Open();
+
             string sName = sNameBox.Text;
             string sUName = sUsernameBox.Text;
             string sEmail = sEmailBox.Text;
             string sPass = sPasswordBox.Password;
             string sDesignation = sDesignationBox.Text;
-            string sAccess = sAccessLevelBox.Text;
+            string sAccess = sAccessCombo.Text;
             string sStatus = sStatusBox.Text;
             string sDepart = sDeparmentBox.Text;
-
 
             SaveStaffCmd.CommandText = "INSERT INTO STAFF (STAFF_NAME,USERNAME,EMAIL,PASSWORD,DESIGNATION,ACCESS_LEVEL," +
                 "STATUS,DEPART_ALIAS) VALUES(@STAFF_NAME,@USERNAME,@EMAIL,@PASSWORD,@DESIGNATION,@ACCESS_LEVEL,@STATUS,@DEPART_ALIAS)";
@@ -147,14 +158,54 @@ namespace LetterEntry
 
         private void sUpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-            string sID;
+            //string sID;
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             dBConn.Open();
-            SqlCommand UpdateStaff = new SqlCommand("UPDATE STAFF SET STAFF_NAME = '" + sNameBox.Text + "' WHERE ID = '"+sID+"', dBConn);
-            UpdateStaff.Connection = dBConn;
-            UpdateStaff.ExecuteNonQuery();
+            SqlCommand UpdateStaff_Cmd = new SqlCommand();
+            UpdateStaff_Cmd.CommandText = "UPDATE STAFF SET STAFF_NAME = '"+ sNameBox.Text +"'," +
+                "USERNAME = '" + sUsernameBox.Text + "', EMAIL = '" + sEmailBox.Text + "', PASSWORD = '" + sPasswordBox.Password + "'," +
+                "DESIGNATION = '" + sDesignationBox.Text + "',ACCESS_LEVEL='" + sAccessCombo.Text + "',DEPART_ALIAS='" + sDeparmentBox.Text + "'," +
+                "STATUS='" + sStatusBox.Text + "' ,WHERE STAFF_ID='" + sIDBox.Text + "'";
+            UpdateStaff_Cmd.ExecuteNonQuery();
+
+            Fill_sNameCombo();
+            Reset_Form();
+            MessageBox.Show("Updated");
+        }
+
+        private void TabItemAll_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Fill_Data_Grid_Class();
+        }
+
+        private void sDeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+            SqlCommand DeleteStaff = new SqlCommand("DELETE FROM STAFF WHERE STAFF_ID='"+ sIDBox.Text +"'",dBConn);
+            SqlDataReader DeleteStaff_Reader;
+            DeleteStaff_Reader = DeleteStaff.ExecuteReader();
             dBConn.Close();
+            dBConn.Dispose();
+
+            Fill_sNameCombo();
+            Reset_Form();
+            MessageBox.Show("Deleted");
+
+        }
+        public void Reset_Form()
+        {
+            sIDBox.Text = "";
+            sNameBox.Text = "";
+            sUsernameBox.Text = "";
+            sEmailBox.Text = "";
+            sPasswordBox.Password = "";
+            sDesignationBox.Text = "";
+            sAccessCombo.Text = "";
+            sStatusBox.Text = "";
+            sDeparmentBox.Text = "";
         }
     }
 }
