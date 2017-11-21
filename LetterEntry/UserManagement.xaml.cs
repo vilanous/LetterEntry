@@ -25,6 +25,7 @@ namespace LetterEntry
             //Fill_Data_Grid_Class();
             Fill_sNameCombo();
             Fill_sAccessCombo();
+            Fill_sStatusCombo();
         }
 
         public void Fill_Data_Grid_Class()
@@ -33,10 +34,11 @@ namespace LetterEntry
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             string CmdString = string.Empty;
             //SqlConnection dBConn = new SqlConnection(dBPath);
-            CmdString = "SELECT id as 'ID', doc_Type as 'NAME', Doc_Number as 'Number', Sent_By as 'From' FROM tableEntry ORDER BY ID DESC";
+            CmdString = "SELECT STAFF_ID as 'ID', STAFF_NAME as 'NAME', USERNAME as 'USERNAME', EMAIL as 'EMAIL', DESIGNATION as 'DESIGNATION'" +
+                ", ACCESS_LEVEL as 'ACCESS LEVEL', DEPART_ALIAS as 'DEPARTMENT', STATUS as 'STATUS' FROM STAFF";
             SqlCommand cmd = new SqlCommand(CmdString, dBConn);
             SqlDataAdapter ada = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable("tableEntry");
+            DataTable dt = new DataTable("STAFF");
             ada.Fill(dt);
             AllUsersGrid.ItemsSource = dt.DefaultView;
 
@@ -76,6 +78,11 @@ namespace LetterEntry
             sAccessCombo.Items.Add("Standard");
             sAccessCombo.Items.Add("Administrator");
         }
+        public void Fill_sStatusCombo()
+        {
+            sStatusCombo.Items.Add("Enabled");
+            sStatusCombo.Items.Add("Disabled");
+        }
 
         private void sNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -106,7 +113,7 @@ namespace LetterEntry
                     sPasswordBox.Password = sPass;
                     sDesignationBox.Text = sDesignation;
                     sAccessCombo.Text = sAccess;
-                    sStatusBox.Text = sStatus;
+                    sStatusCombo.Text = sStatus;
                     sDeparmentBox.Text = sDepart;
                 }
                 LoadStaff_DataReader.Close();
@@ -134,7 +141,7 @@ namespace LetterEntry
             string sPass = sPasswordBox.Password;
             string sDesignation = sDesignationBox.Text;
             string sAccess = sAccessCombo.Text;
-            string sStatus = sStatusBox.Text;
+            string sStatus = sStatusCombo.Text;
             string sDepart = sDeparmentBox.Text;
 
             SaveStaffCmd.CommandText = "INSERT INTO STAFF (STAFF_NAME,USERNAME,EMAIL,PASSWORD,DESIGNATION,ACCESS_LEVEL," +
@@ -153,6 +160,7 @@ namespace LetterEntry
             dBConn.Close();
             dBConn.Dispose();
             MessageBox.Show("Successfull");
+            Reset_Form();
             Fill_sNameCombo();
         }
 
@@ -166,7 +174,8 @@ namespace LetterEntry
             UpdateStaff_Cmd.CommandText = "UPDATE STAFF SET STAFF_NAME = '"+ sNameBox.Text +"'," +
                 "USERNAME = '" + sUsernameBox.Text + "', EMAIL = '" + sEmailBox.Text + "', PASSWORD = '" + sPasswordBox.Password + "'," +
                 "DESIGNATION = '" + sDesignationBox.Text + "',ACCESS_LEVEL='" + sAccessCombo.Text + "',DEPART_ALIAS='" + sDeparmentBox.Text + "'," +
-                "STATUS='" + sStatusBox.Text + "' ,WHERE STAFF_ID='" + sIDBox.Text + "'";
+                "STATUS='" + sStatusCombo.Text + "' WHERE STAFF_ID='" + sIDBox.Text + "'";
+            UpdateStaff_Cmd.Connection = dBConn;
             UpdateStaff_Cmd.ExecuteNonQuery();
 
             Fill_sNameCombo();
@@ -204,7 +213,7 @@ namespace LetterEntry
             sPasswordBox.Password = "";
             sDesignationBox.Text = "";
             sAccessCombo.Text = "";
-            sStatusBox.Text = "";
+            sStatusCombo.Text = "";
             sDeparmentBox.Text = "";
         }
     }

@@ -46,6 +46,7 @@ namespace LetterEntry
         public MainWindow()
         {
             InitializeComponent();
+            OnLogin();
             FillComboClass();
             FillIDbox();
 
@@ -53,7 +54,36 @@ namespace LetterEntry
             AppWindow = this;
             
         }
+        public void OnLogin()
+        {
+            string CurrentUser;
+            string CurrentUserAccess = null;
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+            SqlCommand GetUser = new SqlCommand("SELECT USERNAME,ACCESS_LEVEL FROM SESSION", dBConn);
+            SqlDataReader UserDataReader;
+            try
+            {
+                UserDataReader = GetUser.ExecuteReader();
+                while (UserDataReader.Read())
+                {
+                    CurrentUser = UserDataReader["USERNAME"].ToString();
+                    CurrentUserAccess = UserDataReader["ACCESS_LEVEL"].ToString();
+                    
+                }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            if (CurrentUserAccess != "Administrator")
+            {
+                Admin_Btn.IsEnabled = false;
+                
+            }
+        }
         public void Login_Window()
         {
             LoginPage NewLogin = new LoginPage();
@@ -76,7 +106,7 @@ namespace LetterEntry
                 {
                     IdFromTbl = GetIDReader.GetInt32(0);
                     IdPlusOne = Convert.ToString( IdFromTbl + 1 );
-                    IDBox.Text = IdPlusOne;
+                    IDBox.Text = "00" + IdPlusOne;
                 }
             }
             catch (Exception ex)
@@ -170,14 +200,15 @@ namespace LetterEntry
             string theref = docRef.Text;
             string thedcrp = drcpbox.Text;
             string thefrom = sentByBox.Text;
-            string theenterer = entryBybox.Text;
+            string sAssignedDepart = sAssingedDepartCombo.Text;
 
-            save.CommandText = "INSERT INTO tableEntry (Doc_Type,Doc_Number,Sent_By,Details,Entry,Date) VALUES(@Doc_Type,@Doc_Number,@Sent_By,@Details,@Entry,@Date)";
+            save.CommandText = "INSERT INTO tableEntry (Doc_Type,Doc_Number,Sent_By,Details,Entry,Date)" +
+                " VALUES(@Doc_Type,@Doc_Number,@Sent_By,@Details,@Entry,@Date)";
             save.Parameters.AddWithValue("@Doc_Type", thedoctype);
             save.Parameters.AddWithValue("@Doc_Number", theref);
             save.Parameters.AddWithValue("@Sent_By", thefrom);
             save.Parameters.AddWithValue("@Details", thedcrp);
-            save.Parameters.AddWithValue("@Entry", theenterer);
+            save.Parameters.AddWithValue("@Entry", sAssignedDepart);
             save.Parameters.AddWithValue("@Date", thedate);
             save.Connection = dBConn;
             save.ExecuteNonQuery();
@@ -185,7 +216,7 @@ namespace LetterEntry
             //MessageBox.Show("Successfull");
             
             dBConn.Close();
-            //dBConn.Dispose();
+            dBConn.Dispose();
             MessageBox.Show("Successfull");
             
         }
@@ -241,9 +272,9 @@ namespace LetterEntry
         
         private void LogOutBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
             Login_Window();
-            this.Close();
+            Close();
             
         }
 
@@ -258,7 +289,7 @@ namespace LetterEntry
             docRef.Text = "";
             drcpbox.Text = "";
             sentByBox.Text = "";
-            entryBybox.Text = "";
+            sAssingedDepartCombo.Text = "";
 
             comboDocType.Focus();
         }

@@ -42,8 +42,8 @@ namespace LetterEntry
             Add_New_Staff_Cmd.Connection = dBConn;
             Add_New_Staff_Cmd.ExecuteNonQuery();
 
-            ((MainWindow)Application.Current.MainWindow).entryBybox.Items.Clear();
-            ((MainWindow)Application.Current.MainWindow).entryBybox.Items.Add(NewStaff);
+            ((MainWindow)Application.Current.MainWindow).sAssingedDepartCombo.Items.Clear();
+            ((MainWindow)Application.Current.MainWindow).sAssingedDepartCombo.Items.Add(NewStaff);
             dBConn.Close();
         }
         public void CheckFordatabase()
