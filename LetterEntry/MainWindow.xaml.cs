@@ -276,7 +276,8 @@ namespace LetterEntry
 
         private void ReportsBtn_Click(object sender, RoutedEventArgs e)
         {
-            //
+            Reports NewReport = new Reports();
+            NewReport.ShowDialog();
         }
 
         public void Reset_Form()

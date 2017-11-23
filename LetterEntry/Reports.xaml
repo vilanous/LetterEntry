@@ -1,0 +1,78 @@
+﻿<Window x:Class="LetterEntry.Reports"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LetterEntry"
+        mc:Ignorable="d"
+        Title="Reports" Height="700" Width="900">
+    <Grid>
+        <Label 
+            Content="By ID" 
+            HorizontalAlignment="Left" 
+            Margin="11,14,0,0" 
+            VerticalAlignment="Top"
+            Width="69"/>
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            Margin="123,10,0,0" 
+            VerticalAlignment="Top" 
+            Width="280"
+            Height="35"/>
+        <Label 
+            Content="By Category" 
+            HorizontalAlignment="Left" 
+            Margin="11,57,0,0" 
+            VerticalAlignment="Top"
+            Width="69"/>
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            Margin="123,53,0,0" 
+            VerticalAlignment="Top" 
+            Width="280"
+            Height="35"/>
+        <Label 
+            Content="By Reference" 
+            HorizontalAlignment="Left" 
+            Margin="11,100,0,0" 
+            VerticalAlignment="Top"
+            Width="86"/>
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            Margin="123,96,0,0" 
+            VerticalAlignment="Top" 
+            Width="280"
+            Height="35"/>
+        <Label 
+            Content="By Contact" 
+            HorizontalAlignment="Left" 
+            Margin="489,14,0,0" 
+            VerticalAlignment="Top"
+            Width="86"/>
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            Margin="601,10,0,0" 
+            VerticalAlignment="Top" 
+            Width="280"
+            Height="35"/>
+        <Label 
+            Content="By Department" 
+            HorizontalAlignment="Left" 
+            Margin="489,57,0,0" 
+            VerticalAlignment="Top"
+            Width="97"/>
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            Margin="601,53,0,0" 
+            VerticalAlignment="Top" 
+            Width="280"
+            Height="35"/>
+        <DataGrid 
+            HorizontalAlignment="Left" 
+            Height="500" 
+            Margin="10,159,0,0" 
+            VerticalAlignment="Top" 
+            Width="872"/>
+
+    </Grid>
+</Window>
