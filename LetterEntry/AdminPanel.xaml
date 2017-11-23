@@ -6,9 +6,35 @@
         mc:Ignorable="d"
         Title="AdminPanel" Height="350" Width="525">
     <Grid>
-        <Button x:Name="BrowseDatabase_Path" Content="Browse" HorizontalAlignment="Left" Margin="373,81,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click" Height="29"/>
-        <TextBox x:Name="Database_Filepath" HorizontalAlignment="Left" Height="29" Margin="60,81,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="295" MaxLines="1" VerticalContentAlignment="Center"/>
-        <Button x:Name="SaveDatabase_Path" Content="Save" HorizontalAlignment="Left" Margin="213,255,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_1" Height="29"/>
+        <Button 
+            x:Name="BrowseDatabase_Path" 
+            Content="Browse" 
+            HorizontalAlignment="Left" 
+            Margin="373,81,0,0" 
+            VerticalAlignment="Top" 
+            Width="84" 
+            Click="Button_Click" 
+            Height="29"/>
+        <TextBox 
+            x:Name="Database_Filepath" 
+            HorizontalAlignment="Left" 
+            Height="29" 
+            Margin="60,81,0,0" 
+            TextWrapping="NoWrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            Width="295" 
+            MaxLines="1" 
+            VerticalContentAlignment="Center"/>
+        <Button 
+            x:Name="SaveDatabase_Path" 
+            Content="Save" 
+            HorizontalAlignment="Left" 
+            Margin="213,255,0,0" 
+            VerticalAlignment="Top" 
+            Width="84" 
+            Click="Button_Click_1" 
+            Height="29"/>
         <TextBox 
             x:Name="Export_Database_Box"
             HorizontalAlignment="Left" 

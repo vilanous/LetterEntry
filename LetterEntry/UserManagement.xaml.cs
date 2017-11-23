@@ -43,6 +43,24 @@ namespace LetterEntry
             AllUsersGrid.ItemsSource = dt.DefaultView;
 
         }
+        public void Fill_Sessions()
+        {
+            try
+            {
+                SqlConnection dBConn = new SqlConnection();
+                dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+                SqlCommand FillSession_Cmd = new SqlCommand("SELECT SESSION_TIME,USERNAME,ACCESS_LEVEL FROM SESSION", dBConn);
+                SqlDataAdapter SessionsAdapter = new SqlDataAdapter(FillSession_Cmd);
+                DataTable SessionTable = new DataTable("SESSION");
+                SessionsAdapter.Fill(SessionTable);
+                SessionGrid.ItemsSource = SessionTable.DefaultView;
+            }
+            catch (Exception ex)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show(ex.Message);
+            }
+            
+        }
         public void Fill_sNameCombo()
         {
             SqlConnection dBConn = new SqlConnection();
@@ -50,7 +68,6 @@ namespace LetterEntry
             sNameCombo.Items.Clear();
             string sNameFromtbl;
             string Query1 = "SELECT STAFF_NAME FROM STAFF";
-            //SqlConnection dBConn = new SqlConnection(dBPath);
             SqlCommand GetStaff = new SqlCommand(Query1, dBConn);
 
             SqlDataReader myreader1;
@@ -166,7 +183,6 @@ namespace LetterEntry
 
         private void sUpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-            //string sID;
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             dBConn.Open();
@@ -187,6 +203,11 @@ namespace LetterEntry
         {
             Fill_Data_Grid_Class();
         }
+        private void SessionTab_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Fill_Sessions();
+        }
+
 
         private void sDeleteBtn_Click(object sender, RoutedEventArgs e)
         {

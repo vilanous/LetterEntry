@@ -38,8 +38,6 @@ namespace LetterEntry
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
 
-
-
         //public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
 
 
@@ -56,7 +54,7 @@ namespace LetterEntry
         }
         public void OnLogin()
         {
-            string CurrentUser;
+            string CurrentUser = null;
             string CurrentUserAccess = null;
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
@@ -70,9 +68,7 @@ namespace LetterEntry
                 {
                     CurrentUser = UserDataReader["USERNAME"].ToString();
                     CurrentUserAccess = UserDataReader["ACCESS_LEVEL"].ToString();
-                    
                 }
-
             }
             catch (Exception ex)
             {
