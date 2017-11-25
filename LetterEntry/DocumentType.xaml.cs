@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.IO;
 using LetterEntry;
+using System.Configuration;
 
 namespace LetterEntry
 {
@@ -26,7 +27,7 @@ namespace LetterEntry
         public String getdoctype;
         public static string Database_Path = File.ReadLines(@"C:\\Program Files (x86)\\GIS-ENTRY\\Database_Path.inf").First();
         public String dBPath = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30";
-        public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
+        //public SqlConnection dBConn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + Database_Path + "; UID=sa; Password=welcome@123; Connect Timeout = 30");
         public DocumentType()
         {
             InitializeComponent();
@@ -34,15 +35,17 @@ namespace LetterEntry
         }
         public void FillComboClass()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             Document_Type_Combo.Items.Clear();
             dBConn.Open();
-            SqlCommand Load_Document_Type_Cmd = new SqlCommand("SELECT docType FROM tableDocumentType", dBConn);
+            SqlCommand Load_Document_Type_Cmd = new SqlCommand("SELECT DOCUMENT_TYPE FROM DOCUMENT_TYPE", dBConn);
             SqlDataReader Document_Type_DataReader = Load_Document_Type_Cmd.ExecuteReader();
             try
             {
                 while (Document_Type_DataReader.Read())
                 {
-                    Document_Type_Combo.Items.Add(Document_Type_DataReader["DocType"]);
+                    Document_Type_Combo.Items.Add(Document_Type_DataReader["DOCUMENT_TYPE"]);
                 }
                 Document_Type_DataReader.Close();
             }
@@ -56,8 +59,10 @@ namespace LetterEntry
         
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             string savedoctype = Document_Type_Combo.Text;
-            string Record_Load_String = ("SELECT * FROM tableDocumentType WHERE CONVERT (VARCHAR, docType) = @savedoctype");
+            string Record_Load_String = ("SELECT * FROM DOCUMENT_TYPE WHERE CONVERT (VARCHAR, DOCUMENT_TYPE) = @savedoctype");
             SqlCommand Load_Record_Cmd = new SqlCommand(Record_Load_String, dBConn);
 
             Load_Record_Cmd.Parameters.Add("savedoctype", SqlDbType.VarChar).Value = savedoctype;
@@ -78,8 +83,8 @@ namespace LetterEntry
                 {
                     SqlCommand save = new SqlCommand();
 
-                    save.CommandText = "INSERT INTO tableDocumentType (DocType) VALUES(@DocType)";
-                    save.Parameters.AddWithValue("@DocType", savedoctype);
+                    save.CommandText = "INSERT INTO DOCUMENT_TYPE (DOCUMENT_TYPE) VALUES(@DOCUMENT_TYPE)";
+                    save.Parameters.AddWithValue("@DOCUMENT_TYPE", savedoctype);
                     save.Connection = dBConn;
                     save.ExecuteNonQuery();
 
@@ -105,14 +110,16 @@ namespace LetterEntry
         }
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             string DelTemp = Document_Type_Combo.Text;
             SqlConnection dBconn = new SqlConnection(dBPath);
             SqlCommand deletedoctype = new SqlCommand();
 
             dBconn.Open();
 
-            deletedoctype.CommandText = "DELETE FROM tableDocumentType WHERE DocType = @DocType";
-            deletedoctype.Parameters.AddWithValue("@DocType", DelTemp);
+            deletedoctype.CommandText = "DELETE FROM DOCUMENT_TYPE WHERE DOCUMENT_TYPE = @DOCUMENT_TYPE";
+            deletedoctype.Parameters.AddWithValue("@DOCUMENT_TYPE", DelTemp);
             deletedoctype.Connection = dBconn;
             deletedoctype.ExecuteNonQuery();
 
@@ -123,11 +130,13 @@ namespace LetterEntry
         }
         public void Update_MainCombo()
         {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             //((MainWindow)Application.Current.MainWindow).comboDocType.Items.Clear();
             MainWindow.AppWindow.comboDocType.Items.Clear();
 
             string getdoctype;
-            SqlCommand Load_Doc_Type_Cmd = new SqlCommand("SELECT docType FROM tableDocumentType", dBConn);
+            SqlCommand Load_Doc_Type_Cmd = new SqlCommand("SELECT DOCUMENT_TYPE FROM DOCUMENT_TYPE", dBConn);
             SqlDataReader Document_Type_DataReader;
             try
             {

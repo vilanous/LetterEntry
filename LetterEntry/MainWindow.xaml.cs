@@ -92,7 +92,7 @@ namespace LetterEntry
             dBConn.Open();
             string IdPlusOne;
             int IdFromTbl;
-            SqlCommand GetID = new SqlCommand("SELECT ID FROM tableEntry", dBConn);
+            SqlCommand GetID = new SqlCommand("SELECT ENTRY_ID FROM ENTRY", dBConn);
             
             SqlDataReader GetIDReader;
             try
@@ -119,11 +119,11 @@ namespace LetterEntry
             comboDocType.Items.Clear();
             sentByBox.Items.Clear();
             string getdoctype, getSenderName;
-            string Query1 = "SELECT docType FROM tableDocumentType";
+            string Query1 = "SELECT DOCUMENT_TYPE FROM DOCUMENT_TYPE";
             //SqlConnection dBConn = new SqlConnection(dBPath);
             SqlCommand getdoc = new SqlCommand(Query1, dBConn);
 
-            string Query2 = "SELECT Contact_Name FROM tableSenderList";
+            string Query2 = "SELECT CONTACT_NAME FROM CONTACTS";
             SqlCommand getSender = new SqlCommand(Query2, dBConn);
 
             SqlDataReader myreader1;
@@ -174,7 +174,7 @@ namespace LetterEntry
             //try
             //{
                 SaveEntry();
-                SendMail();
+                //SendMail();
             //}
             //catch (Exception ex)
             //{
@@ -189,28 +189,14 @@ namespace LetterEntry
         {
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
-            SqlCommand save = new SqlCommand();
             dBConn.Open();
-            string thedoctype = comboDocType.Text;
-            string thedate = currentDate.SelectedDate.ToString();
-            string theref = docRef.Text;
-            string thedcrp = drcpbox.Text;
-            string thefrom = sentByBox.Text;
-            string sAssignedDepart = sAssingedDepartCombo.Text;
+            SqlDataReader EntryReader;
+            SqlCommand SaveEntry_Cmd = new SqlCommand("INSERT INTO ENTRY(DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME) " +
+                "VALUES('" + comboDocType.Text + "','" + docRef.Text + "','" + sentByBox.Text + "','" + drcpbox.Text + "','" 
+                + sAssingedDepartCombo.Text + "','" + currentDate.SelectedDate.ToString() +"',(SELECT USERNAME FROM SESSION))");
+            SaveEntry_Cmd.Connection = dBConn;
+            EntryReader = SaveEntry_Cmd.ExecuteReader();
 
-            save.CommandText = "INSERT INTO tableEntry (Doc_Type,Doc_Number,Sent_By,Details,Entry,Date)" +
-                " VALUES(@Doc_Type,@Doc_Number,@Sent_By,@Details,@Entry,@Date)";
-            save.Parameters.AddWithValue("@Doc_Type", thedoctype);
-            save.Parameters.AddWithValue("@Doc_Number", theref);
-            save.Parameters.AddWithValue("@Sent_By", thefrom);
-            save.Parameters.AddWithValue("@Details", thedcrp);
-            save.Parameters.AddWithValue("@Entry", sAssignedDepart);
-            save.Parameters.AddWithValue("@Date", thedate);
-            save.Connection = dBConn;
-            save.ExecuteNonQuery();
-
-            //MessageBox.Show("Successfull");
-            
             dBConn.Close();
             dBConn.Dispose();
             MessageBox.Show("Successfull");

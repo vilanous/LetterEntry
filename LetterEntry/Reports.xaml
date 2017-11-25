@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LetterEntry"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="Reports" Height="700" Width="900">
-    <Grid>
+    <Grid HorizontalAlignment="Left" Width="892">
         <Label 
             Content="By ID" 
             HorizontalAlignment="Left" 
@@ -14,23 +15,27 @@
             VerticalAlignment="Top"
             Width="69"/>
         <ComboBox 
+            x:Name="rIDCombo"
             HorizontalAlignment="Left" 
             Margin="123,10,0,0" 
             VerticalAlignment="Top" 
             Width="280"
-            Height="35"/>
+            Height="35"
+            SelectionChanged="rIDCombo_SelectionChanged"/>
         <Label 
             Content="By Category" 
             HorizontalAlignment="Left" 
             Margin="11,57,0,0" 
             VerticalAlignment="Top"
-            Width="69"/>
+            Width="86"/>
         <ComboBox 
+            x:Name="rCategoryCombo"
             HorizontalAlignment="Left" 
             Margin="123,53,0,0" 
             VerticalAlignment="Top" 
             Width="280"
-            Height="35"/>
+            Height="35"
+            SelectionChanged="rCategoryCombo_SelectionChanged"/>
         <Label 
             Content="By Reference" 
             HorizontalAlignment="Left" 
@@ -38,6 +43,7 @@
             VerticalAlignment="Top"
             Width="86"/>
         <ComboBox 
+            x:Name="rReferenceCombo"
             HorizontalAlignment="Left" 
             Margin="123,96,0,0" 
             VerticalAlignment="Top" 
@@ -50,6 +56,7 @@
             VerticalAlignment="Top"
             Width="86"/>
         <ComboBox 
+            x:Name="rContactCombo"
             HorizontalAlignment="Left" 
             Margin="601,10,0,0" 
             VerticalAlignment="Top" 
@@ -62,17 +69,32 @@
             VerticalAlignment="Top"
             Width="97"/>
         <ComboBox 
+            x:Name="rDepartCombo"
             HorizontalAlignment="Left" 
             Margin="601,53,0,0" 
             VerticalAlignment="Top" 
             Width="280"
             Height="35"/>
-        <DataGrid 
+        <Label 
+            Content="By Date" 
             HorizontalAlignment="Left" 
-            Height="500" 
-            Margin="10,159,0,0" 
+            Margin="489,100,0,0" 
+            VerticalAlignment="Top"
+            Width="97"/>
+        <DatePicker 
+            x:Name="rDate"
+            HorizontalAlignment="Left" 
+            Margin="601,96,0,0" 
             VerticalAlignment="Top" 
-            Width="872"/>
+            Height="35" 
+            Width="281"/>
 
+        <DataGrid 
+            x:Name="ReportGrid" 
+            Height="500" 
+            Margin="10,159,10,10" 
+            VerticalAlignment="Top"
+            ColumnWidth="*" Width="870"/>
+        
     </Grid>
 </Window>

@@ -37,7 +37,7 @@ namespace LetterEntry
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             Sender_Name_Combo.Items.Clear();
             dBConn.Open();
-            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM tableSenderList", dBConn);
+            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM CONTACTS", dBConn);
             SqlDataReader Sender_Name_DataReader = Load_Sender_Name_Cmd.ExecuteReader();
             try
             {
@@ -64,7 +64,7 @@ namespace LetterEntry
                 string save_Email = EmailBox.Text;
                 string save_Contact = Convert.ToString(ContactBox.Text);
                 string save_Sender = Sender_Name_Combo.Text;
-                string Record_Load_String = ("SELECT * FROM tableSenderList WHERE CONVERT (VARCHAR, Contact_Name) = @save_Sender");
+                string Record_Load_String = ("SELECT * FROM CONTACTS WHERE CONVERT (VARCHAR, Contact_Name) = @save_Sender");
                 SqlCommand Load_Record_Cmd = new SqlCommand(Record_Load_String, dBConn);
 
                 Load_Record_Cmd.Parameters.Add("save_Sender", SqlDbType.VarChar).Value = save_Sender;
@@ -85,7 +85,7 @@ namespace LetterEntry
                     {
                         SqlCommand save = new SqlCommand();
 
-                        save.CommandText = "INSERT INTO tableSenderList (Contact_Name,Email_Address,Contact_Number) VALUES(@Contact_Name,@Email_Address,@Contact_Number)";
+                        save.CommandText = "INSERT INTO CONTACTS (Contact_Name,Email_Address,Contact_Number) VALUES(@Contact_Name,@Email_Address,@Contact_Number)";
                         save.Parameters.AddWithValue("@Contact_Name", save_Sender);
                         save.Parameters.AddWithValue("@Email_Address", save_Email);
                         save.Parameters.AddWithValue("@Contact_Number", save_Contact);
@@ -127,7 +127,7 @@ namespace LetterEntry
 
                 dBconn.Open();
 
-                string Query = "DELETE FROM tableSenderList WHERE Contact_Name='" + Sender_Name_Combo.Text + "'";
+                string Query = "DELETE FROM CONTACTS WHERE Contact_Name='" + Sender_Name_Combo.Text + "'";
                 SqlCommand DeleteCmd = new SqlCommand(Query, dBconn);
                 DeleteCmd.ExecuteNonQuery();
                 dBconn.Close();
@@ -147,7 +147,7 @@ namespace LetterEntry
             MainWindow.AppWindow.sentByBox.Items.Clear();
 
             string Sender_Name_From_Tbl;
-            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM tableSenderList", dBConn);
+            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT Contact_Name FROM CONTACTS", dBConn);
             SqlDataReader Sender_Name_DataReader;
             try
             {
@@ -174,7 +174,7 @@ namespace LetterEntry
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             Sender_Name_Combo.Items.Clear();
             dBConn.Open();
-            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT * FROM tableSenderList WHERE Contact_Name='"+ Sender_Name_Combo.Text +"'", dBConn);
+            SqlCommand Load_Sender_Name_Cmd = new SqlCommand("SELECT * FROM CONTACTS WHERE Contact_Name='"+ Sender_Name_Combo.Text +"'", dBConn);
             SqlDataReader Sender_Name_DataReader = Load_Sender_Name_Cmd.ExecuteReader();
             try
             {

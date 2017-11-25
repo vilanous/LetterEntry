@@ -10,15 +10,15 @@
     <Grid Margin="0,0,0,7">
         <Button 
             Content="Save" 
-            Margin="46,342,0,0" 
+            Margin="46,449,0,0" 
             Click="Save_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button 
             Content="Delete" 
-            Margin="186,342,0,0" 
+            Margin="186,449,0,0" 
             Click="Delete_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ComboBox 
             x:Name="Sender_Name_Combo" 
-            Margin="46,149,0,0" 
+            Margin="46,95,0,0" 
             VerticalAlignment="Top"  
             Height="40" 
             IsEditable="True"
@@ -46,7 +46,7 @@
             x:Name="Notification_Box" 
             HorizontalAlignment="Left" 
             Height="23" 
-            Margin="46,292,0,0" 
+            Margin="46,399,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -58,7 +58,7 @@
         <TextBox 
             x:Name="EmailBox" 
             Height="40" 
-            Margin="46,194,0,0" 
+            Margin="46,171,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -74,7 +74,9 @@
             Text="" 
             VerticalAlignment="Top" 
             FontSize="18" 
-            VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="252"/>
+            VerticalContentAlignment="Center" 
+            HorizontalAlignment="Left" 
+            Width="252"/>
 
 
     </Grid>
