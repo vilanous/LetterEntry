@@ -52,6 +52,30 @@ namespace LetterEntry
             AppWindow = this;
             
         }
+        public void Load_Depart()
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+    
+            SqlCommand LoadDepart_Cmd = new SqlCommand("SELECT DEPART_NAME FROM DEPARTMENTS", dBConn);
+
+            SqlDataReader LoadDepartReader;
+            try
+            {
+                LoadDepartReader = LoadDepart_Cmd.ExecuteReader();
+                while (LoadDepartReader.Read())
+                {
+                    sAssingedDepartCombo.Items.Add(LoadDepartReader);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+            dBConn.Dispose();
+        }
         public void OnLogin()
         {
             string CurrentUser = null;
@@ -77,7 +101,7 @@ namespace LetterEntry
             if (CurrentUserAccess != "Administrator")
             {
                 Admin_Btn.IsEnabled = false;
-                
+                UsrMngmtBtn.IsEnabled = false;
             }
         }
         public void Login_Window()
@@ -190,6 +214,7 @@ namespace LetterEntry
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
             dBConn.Open();
+            
             SqlDataReader EntryReader;
             SqlCommand SaveEntry_Cmd = new SqlCommand("INSERT INTO ENTRY(DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME) " +
                 "VALUES('" + comboDocType.Text + "','" + docRef.Text + "','" + sentByBox.Text + "','" + drcpbox.Text + "','" 

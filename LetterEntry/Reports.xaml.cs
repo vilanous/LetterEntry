@@ -155,8 +155,10 @@ namespace LetterEntry
         private void rIDCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //rIDCombo.Items.Clear();
-            SqlConnection dBConn = new SqlConnection();
-            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
             dBConn.Open();
             
             try
@@ -178,14 +180,113 @@ namespace LetterEntry
 
         private void rCategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SqlConnection dBConn = new SqlConnection();
-            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
             dBConn.Open();
 
             try
             {
                 SqlDataAdapter ReportssAdapter = new SqlDataAdapter
                     ("SELECT DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME FROM ENTRY WHERE DOCUMENT_TYPE='" + rCategoryCombo.Text + "'", dBConn);
+                DataTable ReportsTable = new DataTable();
+                ReportssAdapter.Fill(ReportsTable);
+                ReportGrid.ItemsSource = ReportsTable.DefaultView;
+                ReportssAdapter.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+        }
+
+        private void rReferenceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
+            dBConn.Open();
+
+            try
+            {
+                SqlDataAdapter ReportssAdapter = new SqlDataAdapter
+                    ("SELECT DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME FROM ENTRY WHERE DOC_REF='" + rReferenceCombo.Text + "'", dBConn);
+                DataTable ReportsTable = new DataTable();
+                ReportssAdapter.Fill(ReportsTable);
+                ReportGrid.ItemsSource = ReportsTable.DefaultView;
+                ReportssAdapter.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+        }
+
+        private void rContactCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
+            dBConn.Open();
+
+            try
+            {
+                SqlDataAdapter ReportssAdapter = new SqlDataAdapter
+                    ("SELECT DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME FROM ENTRY WHERE CONTACT_NAME='" + rContactCombo.Text + "'", dBConn);
+                DataTable ReportsTable = new DataTable();
+                ReportssAdapter.Fill(ReportsTable);
+                ReportGrid.ItemsSource = ReportsTable.DefaultView;
+                ReportssAdapter.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+        }
+
+        private void rDepartCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
+            dBConn.Open();
+
+            try
+            {
+                SqlDataAdapter ReportssAdapter = new SqlDataAdapter
+                    ("SELECT DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME FROM ENTRY WHERE DEPART_NAME='" + rDepartCombo.Text + "'", dBConn);
+                DataTable ReportsTable = new DataTable();
+                ReportssAdapter.Fill(ReportsTable);
+                ReportGrid.ItemsSource = ReportsTable.DefaultView;
+                ReportssAdapter.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+        }
+
+        private void rDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
+            dBConn.Open();
+
+            try
+            {
+                SqlDataAdapter ReportssAdapter = new SqlDataAdapter
+                    ("SELECT DOCUMENT_TYPE,DOC_REF,CONTACT_NAME,DETAILS,DEPART_NAME,DATE,STAFF_NAME FROM ENTRY WHERE DATE='" + rDate.Text + "'", dBConn);
                 DataTable ReportsTable = new DataTable();
                 ReportssAdapter.Fill(ReportsTable);
                 ReportGrid.ItemsSource = ReportsTable.DefaultView;

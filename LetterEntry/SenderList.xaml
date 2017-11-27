@@ -10,12 +10,20 @@
     <Grid Margin="0,0,0,7">
         <Button 
             Content="Save" 
-            Margin="46,449,0,0" 
-            Click="Save_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            Margin="46,439,0,0" 
+            Click="Save_Button_Click" 
+            Width="112" 
+            Height="40" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"/>
         <Button 
             Content="Delete" 
-            Margin="186,449,0,0" 
-            Click="Delete_Button_Click" Width="112" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            Margin="186,439,0,0" 
+            Click="Delete_Button_Click" 
+            Width="112" 
+            Height="40" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"/>
         <ComboBox 
             x:Name="Sender_Name_Combo" 
             Margin="46,95,0,0" 
@@ -46,7 +54,7 @@
             x:Name="Notification_Box" 
             HorizontalAlignment="Left" 
             Height="23" 
-            Margin="46,399,0,0" 
+            Margin="46,401,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -57,8 +65,8 @@
             IsEnabled="False"/>
         <TextBox 
             x:Name="EmailBox" 
-            Height="40" 
-            Margin="46,171,0,0" 
+            Height="35" 
+            Margin="46,233,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -68,8 +76,8 @@
             Width="252"/>
         <TextBox 
             x:Name="ContactBox"
-            Height="40" 
-            Margin="46,239,0,0" 
+            Height="35" 
+            Margin="46,295,0,0" 
             TextWrapping="Wrap" 
             Text="" 
             VerticalAlignment="Top" 
@@ -77,7 +85,49 @@
             VerticalContentAlignment="Center" 
             HorizontalAlignment="Left" 
             Width="252"/>
-
+        <TextBox 
+            x:Name="cContactNameBox"
+            HorizontalAlignment="Left" 
+            Height="35" 
+            Margin="46,169,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            Width="252"
+            VerticalContentAlignment="Center"
+            FontSize="18"
+            />
+        <TextBox 
+            x:Name="cAddressBox"
+            HorizontalAlignment="Left" 
+            Height="35" 
+            Margin="46,355,0,0" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Top" 
+            Width="252"
+            VerticalContentAlignment="Center"
+            FontSize="18"/>
+        <Label 
+            Content="Name" 
+            HorizontalAlignment="Left" 
+            Margin="46,146,0,0" 
+            VerticalAlignment="Top"/>
+        <Label 
+            Content="Email" 
+            HorizontalAlignment="Left" 
+            Margin="46,209,0,0" 
+            VerticalAlignment="Top"/>
+        <Label 
+            Content="Number" 
+            HorizontalAlignment="Left" 
+            Margin="46,272,0,0" 
+            VerticalAlignment="Top"/>
+        <Label 
+            Content="Address" 
+            HorizontalAlignment="Left" 
+            Margin="46,332,0,0" 
+            VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

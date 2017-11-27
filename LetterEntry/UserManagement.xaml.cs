@@ -237,5 +237,127 @@ namespace LetterEntry
             sStatusCombo.Text = "";
             sDeparmentBox.Text = "";
         }
+        public void Fill_dDepartCombo()
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dDepartCombo.Items.Clear();
+            SqlCommand LoadDepart_Cmd = new SqlCommand("SELECT DEPART_NAME FROM DEPARTMENTS", dBConn);
+       
+            SqlDataReader LoadDepartReader;
+            try
+            {
+                dBConn.Open();
+                LoadDepartReader = LoadDepart_Cmd.ExecuteReader();
+                while (LoadDepartReader.Read())
+                {
+                    string DepartNameFromtbl = LoadDepartReader.GetString(0);
+                    dDepartCombo.Items.Add(DepartNameFromtbl);
+                }
+                LoadDepartReader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+        }
+
+
+        private void dSaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString()
+            };
+            SqlDataReader SaveDepartReader;
+            dBConn.Open();
+            try
+            {
+                SqlCommand SaveDepart_Cmd = new SqlCommand("INSERT INTO DEPARTMENTS (DEPART_ALIAS,DEPART_NAME,DEPART_EMAIL)" +
+                "VALUES('" + dDepartAliasBox.Text + "','" + dDepartNameBox.Text + "','" + dDepartEmailBox.Text + "')", dBConn);
+
+                SaveDepartReader = SaveDepart_Cmd.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+            dBConn.Dispose();
+            Reset_DeparForm();
+            Fill_dDepartCombo();
+            MessageBox.Show("Saved");
+        }
+
+        private void dUpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+            SqlDataReader UpdateDepartReader;
+            SqlCommand UpdateDepart_Cmd = new SqlCommand("UPDATE DEPARTMENTS SET DEPART_ALIAS = '" + dDepartAliasBox.Text + "'," +
+                "DEPART_NAME = '" + dDepartNameBox.Text + "', DEPART_EMAIL = '" + dDepartEmailBox.Text + "'",dBConn);
+            UpdateDepartReader = UpdateDepart_Cmd.ExecuteReader();
+            dBConn.Close();
+            dBConn.Dispose();
+            Reset_DeparForm();
+            MessageBox.Show("Updated");
+        }
+
+        private void dDeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+            SqlCommand DeleteStaff = new SqlCommand("DELETE FROM DEPARTMENTS WHERE DEPART_NAME='" + dDepartNameBox.Text + "'", dBConn);
+            SqlDataReader DeleteStaff_Reader;
+            DeleteStaff_Reader = DeleteStaff.ExecuteReader();
+            dBConn.Close();
+            dBConn.Dispose();
+            Reset_DeparForm();
+            MessageBox.Show("Deleted");
+        }
+        public void Reset_DeparForm()
+        {
+            dDepartAliasBox.Text = "";
+            dDepartEmailBox.Text = "";
+            dDepartNameBox.Text = "";
+            dDepartCombo.Text = "";
+        }
+
+        private void dDepartCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            sNameCombo.Items.Clear();
+            SqlConnection dBConn = new SqlConnection();
+            dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
+            dBConn.Open();
+            SqlCommand LoadDepart_Cmd = new SqlCommand("SELECT * FROM DEPARTMENTS WHERE DEPART_NAME='" + dDepartCombo.Text + "'", dBConn);
+            SqlDataReader LoadDepartReader = LoadDepart_Cmd.ExecuteReader();
+            try
+            {
+                while (LoadDepartReader.Read())
+                {
+                    dDepartAliasBox.Text = LoadDepartReader["DPPART_ALIAS"].ToString();
+                    dDepartNameBox.Text = LoadDepartReader["DEPART_NAME"].ToString();
+                    dDepartEmailBox.Text = LoadDepartReader["DEPART_EMAIL"].ToString();
+                }
+                LoadDepartReader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            dBConn.Close();
+            Fill_dDepartCombo();
+        }
+
+        private void DepartTab_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Fill_dDepartCombo();
+        }
+
+        
     }
 }

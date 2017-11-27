@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Reports" Height="700" Width="900">
-    <Grid HorizontalAlignment="Left" Width="892">
+    <Grid HorizontalAlignment="Left" Width="900">
         <Label 
             Content="By ID" 
             HorizontalAlignment="Left" 
@@ -21,7 +21,10 @@
             VerticalAlignment="Top" 
             Width="280"
             Height="35"
-            SelectionChanged="rIDCombo_SelectionChanged"/>
+            SelectionChanged="rIDCombo_SelectionChanged" 
+            FontSize="14"
+            VerticalContentAlignment="Center"
+            IsEditable="True"/>
         <Label 
             Content="By Category" 
             HorizontalAlignment="Left" 
@@ -35,7 +38,10 @@
             VerticalAlignment="Top" 
             Width="280"
             Height="35"
-            SelectionChanged="rCategoryCombo_SelectionChanged"/>
+            SelectionChanged="rCategoryCombo_SelectionChanged"
+            FontSize="14"
+            VerticalContentAlignment="Center"
+            IsEditable="True"/>
         <Label 
             Content="By Reference" 
             HorizontalAlignment="Left" 
@@ -48,7 +54,11 @@
             Margin="123,96,0,0" 
             VerticalAlignment="Top" 
             Width="280"
-            Height="35"/>
+            Height="35"
+            SelectionChanged="rReferenceCombo_SelectionChanged"
+            FontSize="14"
+            VerticalContentAlignment="Center"
+            IsEditable="True"/>
         <Label 
             Content="By Contact" 
             HorizontalAlignment="Left" 
@@ -61,7 +71,11 @@
             Margin="601,10,0,0" 
             VerticalAlignment="Top" 
             Width="280"
-            Height="35"/>
+            Height="35"
+            SelectionChanged="rContactCombo_SelectionChanged"
+            FontSize="14"
+            VerticalContentAlignment="Center"
+            IsEditable="True"/>
         <Label 
             Content="By Department" 
             HorizontalAlignment="Left" 
@@ -74,7 +88,11 @@
             Margin="601,53,0,0" 
             VerticalAlignment="Top" 
             Width="280"
-            Height="35"/>
+            Height="35"
+            SelectionChanged="rDepartCombo_SelectionChanged"
+            FontSize="14"
+            VerticalContentAlignment="Center"
+            IsEditable="True"/>
         <Label 
             Content="By Date" 
             HorizontalAlignment="Left" 
@@ -87,14 +105,17 @@
             Margin="601,96,0,0" 
             VerticalAlignment="Top" 
             Height="35" 
-            Width="281"/>
+            Width="280"
+            SelectedDateChanged="rDate_SelectedDateChanged"/>
 
         <DataGrid 
             x:Name="ReportGrid" 
             Height="500" 
-            Margin="10,159,10,10" 
+            Margin="11,159,0,0" 
             VerticalAlignment="Top"
-            ColumnWidth="*" Width="870"/>
-        
+            ColumnWidth="*" 
+            Width="870" 
+            HorizontalAlignment="Left"/>
+
     </Grid>
 </Window>

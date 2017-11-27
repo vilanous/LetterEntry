@@ -64,6 +64,7 @@ namespace LetterEntry
                 string save_Email = EmailBox.Text;
                 string save_Contact = Convert.ToString(ContactBox.Text);
                 string save_Sender = Sender_Name_Combo.Text;
+                string save_Address = cAddressBox.Text;
                 string Record_Load_String = ("SELECT * FROM CONTACTS WHERE CONVERT (VARCHAR, Contact_Name) = @save_Sender");
                 SqlCommand Load_Record_Cmd = new SqlCommand(Record_Load_String, dBConn);
 
@@ -85,10 +86,11 @@ namespace LetterEntry
                     {
                         SqlCommand save = new SqlCommand();
 
-                        save.CommandText = "INSERT INTO CONTACTS (Contact_Name,Email_Address,Contact_Number) VALUES(@Contact_Name,@Email_Address,@Contact_Number)";
+                        save.CommandText = "INSERT INTO CONTACTS (Contact_Name,Email_Address,Contact_Number,ADDRESS) VALUES(@Contact_Name,@Email_Address,@Contact_Number,@ADDRESS)";
                         save.Parameters.AddWithValue("@Contact_Name", save_Sender);
                         save.Parameters.AddWithValue("@Email_Address", save_Email);
                         save.Parameters.AddWithValue("@Contact_Number", save_Contact);
+                        save.Parameters.AddWithValue("@ADDRESS", save_Address);
                         save.Connection = dBConn;
                         save.ExecuteNonQuery();
 
@@ -96,6 +98,7 @@ namespace LetterEntry
                         Sender_Name_Combo.Text = "";
                         EmailBox.Text = "";
                         ContactBox.Text = "";
+                        cAddressBox.Text = "";
                     }
                 }
                 catch (Exception ex)
@@ -117,17 +120,18 @@ namespace LetterEntry
         {
             SqlConnection dBConn = new SqlConnection();
             dBConn.ConnectionString = ConfigurationManager.ConnectionStrings["ConnStr"].ToString();
-            if (Sender_Name_Combo.Text.Length > 0)
+            if (cContactNameBox.Text.Length > 0)
             {
-                string Del_Name = Sender_Name_Combo.Text;
+                string Del_Name = cContactNameBox.Text;
                 string Del_Email = EmailBox.Text;
                 string Del_Contact = ContactBox.Text;
+                string Del_Address = cAddressBox.Text;
                 SqlConnection dBconn = new SqlConnection(dBPath);
                 //SqlCommand delete_Sender = new SqlCommand();
 
                 dBconn.Open();
 
-                string Query = "DELETE FROM CONTACTS WHERE Contact_Name='" + Sender_Name_Combo.Text + "'";
+                string Query = "DELETE FROM CONTACTS WHERE Contact_Name='" + cContactNameBox.Text + "'";
                 SqlCommand DeleteCmd = new SqlCommand(Query, dBconn);
                 DeleteCmd.ExecuteNonQuery();
                 dBconn.Close();
@@ -180,14 +184,10 @@ namespace LetterEntry
             {
                 while (Sender_Name_DataReader.Read())
                 {
-                    string cName = Sender_Name_DataReader.GetString(1);
-                    string cEmail = Sender_Name_DataReader.GetString(2);
-                    string cNumber = Sender_Name_DataReader["Contact_Number"].ToString();
-                    string cAddress = Sender_Name_DataReader["Address"].ToString();
-
-                    Sender_Name_Combo.Text = cName;
-                    EmailBox.Text = cEmail;
-                    ContactBox.Text = cNumber;
+                    cContactNameBox.Text = Sender_Name_DataReader["Contact_name"].ToString();
+                    EmailBox.Text = Sender_Name_DataReader["EMAIL_ADDRESS"].ToString();
+                    ContactBox.Text = Sender_Name_DataReader["Contact_Number"].ToString();
+                    cAddressBox.Text = Sender_Name_DataReader["Address"].ToString();
                 }
                 Sender_Name_DataReader.Close();
             }

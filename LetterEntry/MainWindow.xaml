@@ -29,7 +29,8 @@
             VerticalAlignment="Top" 
             Width="40" 
             Click="Button_Document_Type" 
-            Height="40"/>
+            Height="40"
+            ToolTip="Add Category"/>
         <DatePicker 
             x:Name="currentDate" 
             HorizontalAlignment="Left" 
@@ -77,7 +78,8 @@
             Width="87" 
             Height="40" 
             Click="Submit_Click" 
-            TabIndex="7"/>
+            TabIndex="7"
+            ToolTip="Save Entry"/>
         <TextBox 
             x:Name="docRef" 
             HorizontalAlignment="Left" 
@@ -112,7 +114,7 @@
             FontSize="18" 
             VerticalContentAlignment="Center" />
         <Label 
-            Content="Sent From" 
+            Content="Contact" 
             HorizontalAlignment="Left" 
             Margin="21,328,0,0" 
             VerticalAlignment="Top" 
@@ -150,7 +152,8 @@
             VerticalAlignment="Top" 
             Width="40" 
             Click="Button_Add_Sender" 
-            Height="40"/>
+            Height="40"
+            ToolTip="Add Contact Info"/>
         <Image 
             Margin="0,0,0,596" 
             Source="Banner.jpg" 
@@ -163,7 +166,8 @@
             VerticalAlignment="Top" 
             Width="120" 
             Height="40"
-            Click="AdminBtn_Click"/>
+            Click="AdminBtn_Click"
+            ToolTip="Administration Page"/>
         <Label 
             Content="GIS ENTRY SYSTEM" 
             HorizontalAlignment="Left" 
@@ -174,13 +178,15 @@
             FontFamily="Microsoft JhengHei UI" 
             Width="233"/>
         <Button 
+            x:Name="UsrMngmtBtn"
             Content="User Management" 
             HorizontalAlignment="Left" 
             Margin="606,20,0,0" 
             VerticalAlignment="Top" 
             Width="120" 
             Height="40" 
-            Click="UsrMngmt_Click"/>
+            Click="UsrMngmt_Click"
+            ToolTip="User Management Page"/>
         <Button 
             Content="Reset" 
             HorizontalAlignment="Left" 
@@ -188,7 +194,8 @@
             VerticalAlignment="Top" 
             Width="87" 
             Height="40"
-            Click="ResetBtn_Click"/>
+            Click="ResetBtn_Click"
+            ToolTip="Reset Form"/>
         <Button 
             Content="Log out" 
             x:Name="LogOut_Btn"
@@ -196,14 +203,17 @@
             Margin="801,20,0,0" 
             VerticalAlignment="Top" 
             Width="66" 
-            Height="40" Click="LogOutBtn_Click"/>
+            Height="40" 
+            Click="LogOutBtn_Click"
+            ToolTip="User Logout"/>
         <Button 
             Content="Scan" 
             HorizontalAlignment="Left" 
             Margin="481,97,0,0" 
             VerticalAlignment="Top" 
             Width="90"
-            Height="40" Click="ScanBtn_Click"/>
+            Height="40" 
+            Click="ScanBtn_Click"/>
         <Image 
             x:Name="PictureBox1"
             x:FieldModifier="public"
@@ -221,7 +231,23 @@
             VerticalAlignment="Top" 
             Width="66" 
             Height="40"
-            Click="ReportsBtn_Click"/>
+            Click="ReportsBtn_Click"
+            ToolTip="Reports Page"/>
+        <Label 
+            Content="Description" 
+            HorizontalAlignment="Left" 
+            Margin="20,419,0,0" 
+            VerticalAlignment="Top"/>
+        <Label 
+            Content="Department" 
+            HorizontalAlignment="Left" 
+            Margin="21,516,0,0" 
+            VerticalAlignment="Top"/>
+        <Label 
+            Content="Category" 
+            HorizontalAlignment="Left" 
+            Margin="21,158,0,0" 
+            VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
